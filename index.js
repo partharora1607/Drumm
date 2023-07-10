@@ -1,14 +1,18 @@
 let len = document.querySelectorAll("button").length;
 for (let i = 0; i < len; i++) {
-  document.querySelectorAll("button")[i].addEventListener("click", function () {
-    let char = this.textContent;
-    let key = char.trim();
-    makeSound(key);
-  });
+  document
+    .querySelectorAll("button")
+    [i].addEventListener("click", function (event) {
+      let char = this.textContent;
+      let key = char.trim();
+      makeSound(key);
+      annimation(key);
+    });
 }
 
-document.addEventListener("keypress" , function(event){
-    makeSound(event.key);
+document.addEventListener("keypress", function (event) {
+  makeSound(event.key);
+  annimation(event.key);
 });
 
 function makeSound(key) {
@@ -35,4 +39,12 @@ function makeSound(key) {
     let audio = new Audio("./sounds/crash.mp3");
     audio.play();
   }
+}
+
+function annimation(key) {
+  let target = document.querySelector("." + key);
+  target.classList.add("pressed");
+  setTimeout(() => {
+      target.classList.remove("pressed");
+  }, 100);
 }
